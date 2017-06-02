@@ -1,5 +1,3 @@
-import fetch from 'whatwg-fetch';
+import 'whatwg-fetch';
 
-export const getData = url =>
-  fetch(url)
-    .then(res => res.json());
+export const getData = url => fetch(url).then(res => res.json());

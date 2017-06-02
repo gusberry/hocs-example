@@ -3,13 +3,13 @@ import { fetchDataForSpecificId } from '../actions/api';
 
 const mapFetchDataToProps = (dispatch, ownProps) => {
   if (!ownProps.componentId) {
-    throw Error('componentId was not specified in props for fetchDataHOC') 
+    throw Error('componentId was not specified in props for fetchDataHOC');
   }
 
   return {
-    getData: fetchDataForSpecificId(ownProps.componentId),
+    getData: fetchDataForSpecificId(ownProps.componentId, dispatch),
   };
-}
+};
 
-export default (WrappedComponent) =>
+export default WrappedComponent =>
   connect(null, mapFetchDataToProps)(WrappedComponent);

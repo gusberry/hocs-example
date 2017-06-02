@@ -1,8 +1,16 @@
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state, dataSourceSelector) => ({
-  dataSource: dataSourceSelector(state),
-});
+const mapStateToProps = dataSourceSelector => (state, ownProps) => {
+  if (!ownProps.componentId) {
+    throw Error(
+      'componentId was not specified in props for reduxDataSourceHOC',
+    );
+  }
 
-export default (stateSelector) => (WrappedComponent) =>
-  connect(mapStateToProps)(WrappedComponent);
+  return {
+    dataSource: dataSourceSelector(state, ownProps.componentId),
+  };
+};
+
+export default stateSelector => WrappedComponent =>
+  connect(mapStateToProps(stateSelector), null)(WrappedComponent);

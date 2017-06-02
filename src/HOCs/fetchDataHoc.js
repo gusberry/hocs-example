@@ -4,14 +4,13 @@ import omit from 'lodash/omit';
 import { getDisplayName } from '../services/helpers';
 
 const externalDataSourceHoc = WrappedComponent =>
-
   class extends Component {
-    static displayName = `ExternalDataSourceHoc(${getDisplayName(WrappedComponent)})`
+    static displayName = `ExternalDataSourceHoc(${getDisplayName(WrappedComponent)})`;
 
     static propTypes = {
       url: PropTypes.string.isRequired,
       getData: PropTypes.func.isRequired,
-    }
+    };
 
     componentWillMount() {
       this.getData();
@@ -23,15 +22,13 @@ const externalDataSourceHoc = WrappedComponent =>
       }
     }
 
-    getData = () => this.props.getData && this.props.getData(this.props.url)
+    getData = () => this.props.getData && this.props.getData(this.props.url);
 
     render() {
       const filteredProps = omit(this.props, ['url', 'fetchDataFromServer']);
 
-      return (
-        <WrappedComponent {...filteredProps} />
-      );
+      return <WrappedComponent {...filteredProps} />;
     }
-  }
+  };
 
 export default externalDataSourceHoc;

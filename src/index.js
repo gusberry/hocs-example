@@ -1,32 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import { createLogger } from 'redux-logger'
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-import fetchDataHoc from './HOCs/fetchDataHoc';
+import App from './components/App';
+import registerServiceWorker from './registerServiceWorker';
 
+import reducer from './reducers';
 
 const middleware = [thunk, createLogger()];
-const store = createStore(
-  (state, action) => ({ state: null }),
-  applyMiddleware(...middleware)
-)
+const store = createStore(reducer, applyMiddleware(...middleware));
 
-
-
-const Connected = fetchDataHoc(App)
-
-const Application = () => (
+ReactDOM.render(
   <Provider store={store}>
-    <Connected />
-  </Provider>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
 );
-
-ReactDOM.render(<Application />, document.getElementById('root'));
 registerServiceWorker();
